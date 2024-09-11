@@ -1,35 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset = "urf-8">
-<title> Tong hop link cua Nguyen Van The Hung </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tìm Nhóm Nhiều Thành Viên Nhất</title>
+    <script>
+        async function getGroups() {
+            const accessToken = 'YOUR_ACCESS_TOKEN'; // Thay thế bằng token truy cập của bạn
+            const url = `https://graph.facebook.com/v12.0/me/groups?access_token=${accessToken}&fields=name,member_count`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.data) {
+                    let largestGroup = null;
+                    let maxMembers = 0;
+
+                    data.data.forEach(group => {
+                        if (group.member_count > maxMembers) {
+                            maxMembers = group.member_count;
+                            largestGroup = group;
+                        }
+                    });
+
+                    document.getElementById('result').innerHTML = largestGroup 
+                        ? `Nhóm lớn nhất là: ${largestGroup.name} với ${largestGroup.member_count} thành viên`
+                        : 'Không tìm thấy nhóm.';
+                } else {
+                    document.getElementById('result').innerHTML = 'Lỗi: ' + (data.error && data.error.message ? data.error.message : 'Không rõ lỗi');
+                }
+            } catch (error) {
+                document.getElementById('result').innerHTML = 'Lỗi: ' + error.message;
+            }
+        }
+    </script>
 </head>
-<body style = "background-color: black">
-<div>
-	<h1 style = "color:white;background-color:red; padding: 10px; margin: 0px; text-align: center;"> link hot the hung </h1>
-	</br>
-	<p style = "color:white"> moi nhat hom nay cap nhat den 4:20 PM 9/9/2024 </p>
-	<hr/>
-
-	<div style="display: flex; flex-direction: row; justify-content: center;">
-
-		<a href ="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"> 
-			<img src="IMG_1240.JPG" alt = " ban cung giuong the hung " width="345" height="518" > 
-			<p style = "color:white"> ---em hoc sinh ngay tho va thay the hung dam dang--- - </p>
-		</a>
-		</br>
-		<a href ="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"> 
-			<img src="457624843_3375857959385106_7499854848953309066_n.jpg" alt = " hdhasgfya " width="345" height="518" > 
-			<p style = "color:white"> -nghe tin bo me khong o nha, the hung chay sang nhanh vai lon-- </p>
-		</a>
-		<a href ="https://1xbetbdapp.com/1xbet-pc-client/"> 
-			<img src="1xbet.jpg" alt = " hdhasgfya " width="248" height="177" > 
-		</a>
-		</br>
-		<a href ="https://b52.club/"> 
-			<img src="b52.jpg" alt = " hdhasgfya " width="248" height="177" > 
-		</a>
-	</div>
-</div>
+<body>
+    <h1>Tìm Nhóm Nhiều Thành Viên Nhất trên Facebook</h1>
+    <button onclick="getGroups()">Tìm Nhóm</button>
+    <p id="result"></p>
 </body>
 </html>

@@ -1,44 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tìm Nhóm Nhiều Thành Viên Nhất</title>
-    <script>
-        async function getGroups() {
-            const accessToken = 'YOUR_ACCESS_TOKEN'; // Thay thế bằng token truy cập của bạn
-            const url = `https://graph.facebook.com/v12.0/me/groups?access_token=${accessToken}&fields=name,member_count`;
-
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
-
-                if (data.data) {
-                    let largestGroup = null;
-                    let maxMembers = 0;
-
-                    data.data.forEach(group => {
-                        if (group.member_count > maxMembers) {
-                            maxMembers = group.member_count;
-                            largestGroup = group;
-                        }
-                    });
-
-                    document.getElementById('result').innerHTML = largestGroup 
-                        ? `Nhóm lớn nhất là: ${largestGroup.name} với ${largestGroup.member_count} thành viên`
-                        : 'Không tìm thấy nhóm.';
-                } else {
-                    document.getElementById('result').innerHTML = 'Lỗi: ' + (data.error && data.error.message ? data.error.message : 'Không rõ lỗi');
-                }
-            } catch (error) {
-                document.getElementById('result').innerHTML = 'Lỗi: ' + error.message;
-            }
+    <title>Giới Thiệu Bản Thân</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
         }
-    </script>
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            line-height: 1.6;
+        }
+    </style>
 </head>
 <body>
-    <h1>Tìm Nhóm Nhiều Thành Viên Nhất trên Facebook</h1>
-    <button onclick="getGroups()">Tìm Nhóm</button>
-    <p id="result"></p>
+    <div class="container">
+        <h1>Chào Mừng Bạn Đến Với Trang Giới Thiệu Của Tôi!</h1>
+        <h2>Thông Tin Cá Nhân</h2>
+        <p><strong>Tên:</strong> Nguyễn Minh Hoàng</p>
+        <p><strong>Tuổi:</strong> 17</p>
+	<p><strong>Địa chỉ:</strong> 46 Hùng Vương, Hoàn Lão, Bố Trạch, Quảng Bình</p>
+        <p><strong>Nghề Nghiệp:</strong>CEO tại Công ty Trách nhiệm Hữu hạn 32 Thành viên 12TIN</p>
+	<p> Mặt trước: <img src="459975784_427728263678689_3225947718522291594_n.jpg" width="192" height="256" alt="mt"> Mặt sau: <img src="48c25b874a7bf325aa6a.jpg" width="192" height="256" alt="mt2"> </p>
+        <h2>Sở Thích</h2>
+        <ul>
+            <li>Tập Dim</li>
+            <li>Chơi thể thao</li>
+            <li>Cà khịa Thế Hùng</li>
+            <li>Chọc HEOSIUBEO</li>
+	    <li>Nghe nhạc <audio src="nhac1.mp4" controls></li>
+	    <li> Quay video xàm </li>
+	    <video src="vid1.mp4" width="216" height="384" controls>
+        </ul>
+
+        <h2>Kỹ Năng</h2>
+        <p> Ăn, ngủ, tập dim </p>
+	
+        <h2>Liên Hệ</h2>
+        <p>Email: nminhhoang50@gmail.com</p>
+        <p>Số điện thoại: 0852 795 769</p>
+    </div>
 </body>
 </html>
